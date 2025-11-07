@@ -1,6 +1,6 @@
 /**
 problem:
-Một niệm nghịch thiên — muôn kế diệt vong
+A rebellious thought defies heaven — countless schemes perish
 Date: 2025/11/07, Time: 15:20:06
 create by: Phat Of Bug
 **/
@@ -69,7 +69,7 @@ struct Seg{
 
     T get(int l, int r){return get(1, 1, n, l, r);}
 
-    T merge(T a, T b) {return a + b;}
+    T merge(T a, T b) {return a + b;} // Change if using min/max/etc.
 };
 int main() {
     faster
@@ -81,7 +81,7 @@ int main() {
         else cout << tree.get(l, r) << '\n';
     }    
 }
-// inp
+// input
 // 5 6
 // 1 0 3 3
 // 2 1 2
@@ -89,7 +89,7 @@ int main() {
 // 2 1 3
 // 2 1 4
 // 2 3 5
-// out
+// output
 // 3
 // 14
 // 18

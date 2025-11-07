@@ -4,10 +4,10 @@
 
 using namespace std;
 
-// Cấu trúc lưu trữ cạnh
+// Edge structure
 struct Edge {
     int u, v, weight;
-    // Overload toán tử < để sort dễ dàng
+    // Overload operator < for easy sorting
     bool operator<(const Edge& other) const {
         return weight < other.weight;
     }
@@ -17,7 +17,7 @@ const int MAXN = 100005;
 int parent[MAXN];
 int sz[MAXN];
 
-// --- Phần DSU ---
+// --- DSU section ---
 void make_set(int n) {
     for (int i = 1; i <= n; i++) {
         parent[i] = i;
@@ -44,11 +44,11 @@ bool unite(int a, int b) {
 // ----------------
 
 int main() {
-    // Tối ưu I/O
+    // Optimize I/O
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n, m; // n đỉnh, m cạnh
+    int n, m; // n vertices, m edges
     if (!(cin >> n >> m)) return 0;
 
     vector<Edge> edges(m);
@@ -56,33 +56,33 @@ int main() {
         cin >> edges[i].u >> edges[i].v >> edges[i].weight;
     }
 
-    // B1: Sắp xếp các cạnh theo trọng số tăng dần
+    // Step 1: Sort edges by non-decreasing weight
     sort(edges.begin(), edges.end());
 
-    // B2: Khởi tạo DSU
+    // Step 2: Initialize DSU
     make_set(n);
 
     long long mst_weight = 0;
     int edges_count = 0;
-    vector<Edge> mst_edges; // Nếu cần lưu các cạnh của MST
+    vector<Edge> mst_edges; // If you need to store MST edges
 
-    // B3: Duyệt các cạnh đã sắp xếp
+    // Step 3: Iterate through sorted edges
     for (const auto& edge : edges) {
-        // Nếu u và v chưa thuộc cùng một thành phần liên thông
+        // If u and v are not in the same connected component
         if (unite(edge.u, edge.v)) {
             mst_weight += edge.weight;
-            // mst_edges.push_back(edge); // Lưu cạnh vào kết quả nếu cần
+            // mst_edges.push_back(edge); // Store the edge if needed
             edges_count++;
-            // Tối ưu: Nếu đã đủ n-1 cạnh thì dừng sớm
+            // Optimization: stop early when we have n-1 edges
             if (edges_count == n - 1) break;
         }
     }
 
     if (edges_count < n - 1) {
-        cout << "Do thi khong lien thong, khong co MST.\n";
+        cout << "The graph is disconnected; no MST exists.\n";
     } else {
         cout << mst_weight << "\n";
-        // In ra các cạnh nếu cần
+        // Print edges if needed
         // for (auto& e : mst_edges) cout << e.u << " " << e.v << "\n";
     }
 

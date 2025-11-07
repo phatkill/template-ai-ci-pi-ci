@@ -1,6 +1,6 @@
 /**
 problem:
-Một niệm nghịch thiên — muôn kế diệt vong
+A rebellious thought defies heaven — countless schemes perish
 Date: 2025/11/07, Time: 21:31:46
 create by: Phat Of Bug
 **/

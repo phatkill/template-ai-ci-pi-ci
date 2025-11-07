@@ -4,74 +4,74 @@
 
 using namespace std;
 
-// Hàm xây dựng mảng prefix (pi function) cho chuỗi mẫu P
-// pi[i] là độ dài tiền tố dài nhất của P[0...i] cũng là hậu tố của P[0...i]
+// Build prefix array (pi function) for pattern P
+// pi[i] is the length of the longest prefix of P[0...i] that is also a suffix of P[0...i]
 vector<int> compute_prefix_function(const string& P) {
     int m = P.length();
     vector<int> pi(m);
-    pi[0] = 0; // Phần tử đầu tiên luôn có pi = 0
-    int k = 0; // k là độ dài tiền tố khớp hiện tại
+    pi[0] = 0; // First element always 0
+    int k = 0; // current matched prefix length
     for (int q = 1; q < m; q++) {
-        // Nếu ký tự không khớp, quay lui k dựa trên giá trị pi trước đó
+        // If mismatch, fallback using previous pi value
         while (k > 0 && P[k] != P[q])
             k = pi[k - 1];
-        // Nếu khớp, tăng độ dài tiền tố khớp lên 1
+        // If match, extend matched prefix
         if (P[k] == P[q])
             k++;
-        pi[q] = k; // Lưu giá trị pi tại vị trí q
+        pi[q] = k; // Store pi at position q
     }
     return pi;
 }
 
-// Hàm tìm kiếm KMP: tìm tất cả vị trí xuất hiện của P trong T
+// KMP search: find all occurrences of P in T
 void KMP_search(const string& T, const string& P) {
     int n = T.length();
     int m = P.length();
-    if (m == 0) return; // Trường hợp chuỗi mẫu rỗng
+    if (m == 0) return; // Empty pattern
 
-    // B1: Tính mảng pi cho chuỗi mẫu P
+    // Step 1: compute pi array for P
     vector<int> pi = compute_prefix_function(P);
 
-    int q = 0; // q là số ký tự đã khớp
+    int q = 0; // number of matched characters
     for (int i = 0; i < n; i++) {
-        // Tương tự như xây dựng pi: nếu không khớp, quay lui q
+        // Like building pi: on mismatch, fallback q
         while (q > 0 && P[q] != T[i])
             q = pi[q - 1];
-        // Nếu khớp ký tự tiếp theo
+        // If next character matches
         if (P[q] == T[i])
             q++;
-        // Nếu đã khớp toàn bộ chuỗi P (q == m)
+        // If whole pattern matched (q == m)
         if (q == m) {
-            // Tìm thấy P tại vị trí kết thúc là i.
-            // Vị trí bắt đầu là i - m + 1 (0-based index)
+            // Found P ending at i.
+            // Start index = i - m + 1 (0-based)
             cout << "Tim thay mau tai vi tri: " << i - m + 1 << "\n";
             
-            // Chuẩn bị cho lần tìm kiếm tiếp theo: coi như vừa khớp sai để quay lui
+            // Prepare for next search: fallback
             q = pi[q - 1];
         }
     }
 }
 
 /*
-=== HƯỚNG DẪN INPUT/OUTPUT ===
+=== INPUT/OUTPUT GUIDE ===
 
-Bài toán: Tìm tất cả vị trí xuất hiện của mẫu P trong văn bản T.
+Task: Find all occurrences of pattern P in text T.
 
-Input mẫu:
+Sample input:
 ababcabcabababd
 ababd
 
-Giải thích Input:
-- Dòng 1: Chuỗi văn bản T = "ababcabcabababd"
-- Dòng 2: Chuỗi mẫu P = "ababd"
+Explanation:
+- Line 1: Text T = "ababcabcabababd"
+- Line 2: Pattern P = "ababd"
 
-Output mong đợi:
+Expected output:
 Tim thay mau tai vi tri: 10
 
-Giải thích:
-- Chuỗi "ababd" chỉ xuất hiện 1 lần trong T, bắt đầu từ chỉ số 10.
-  T: a b a b c a b c a b [a b a b d]
-     0 1 2 3 4 5 6 7 8 9 10 11 12 13 14
+Explanation:
+- The pattern "ababd" appears once in T, starting at index 10.
+    T: a b a b c a b c a b [a b a b d]
+         0 1 2 3 4 5 6 7 8 9 10 11 12 13 14
 */
 
 int main() {

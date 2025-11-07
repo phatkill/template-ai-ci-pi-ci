@@ -1,6 +1,6 @@
 /**
 problem:
-Một niệm nghịch thiên — muôn kế diệt vong
+A rebellious thought defies heaven — countless schemes perish
 Date: 2025/11/04, Time: 06:06:52
 create by: Phat Of Bug
 **/
@@ -48,7 +48,7 @@ struct SegmentTree{
     }
 
     T merge(T a, T b){
-        return a + b;
+        return a + b; // Change if using different aggregation (min, max, etc.)
     }
 
     void update(int i, T val){
@@ -74,8 +74,8 @@ int main() {
         else cout << tree.get(u, v) << '\n';
     }
 }
-//tinh tong
-//input
+// Sum queries example
+// input
 // 5 5
 // 5 4 2 3 5
 // 2 0 3
@@ -83,7 +83,7 @@ int main() {
 // 2 0 3
 // 1 3 1
 // 2 0 5
-//output
+// output
 // 11
 // 8
 // 14

@@ -22,7 +22,7 @@
         // Using a custom comparison function
         std::sort(people.begin(), people.end(), comparePeople);
 
-        // Using a lambda expression (more common in modern C++)
+    // Using a lambda expression (more common in modern C++)
         // std::sort(people.begin(), people.end(), [](const Person& p1, const Person& p2) {
         //     return p1.name < p2.name; // Sort by name alphabetically
         // });

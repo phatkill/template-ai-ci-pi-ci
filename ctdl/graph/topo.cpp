@@ -6,46 +6,45 @@ int visited[maxN], ans[maxN];
 vector <int> g[maxN];
 stack <int> topo;
 
-// Hàm DFS để tìm thứ tự tô-pô
+// DFS to find topological order
 void dfs(int u) {
-    visited[u] = 1; // Đánh dấu đỉnh u đang được xét (đang trong stack của DFS)
+    visited[u] = 1; // Mark u as being processed (on recursion stack)
     
-    // Duyệt qua các đỉnh kề của u
+    // Iterate adjacent vertices of u
     for (auto v : g[u]) {
-        // Nếu v đang được xét (visited[v] = 1) => phát hiện chu trình
+        // If v is being processed (visited[v] = 1) => cycle detected
         if (visited[v] == 1) {
             cout << "Error: graph contains a cycle";
             exit(0);
         }
-        // Nếu v chưa được thăm, tiếp tục DFS
+        // If v not visited, continue DFS
         if (!visited[v]) dfs(v);
     }
     
-    // Đẩy đỉnh u vào stack sau khi đã xét hết các đỉnh con của nó
-    // Điều này đảm bảo các đỉnh được xét sau (đỉnh con) sẽ nằm trên đỉnh u trong stack
+    // Push u after exploring all descendants
+    // Ensures descendants appear above u in the stack
     topo.push(u);
-    visited[u] = 2; // Đánh dấu đỉnh u đã xét xong
+    visited[u] = 2; // Mark u finished
 }
 
 int main() {
     cin >> n >> m;
     
-    // Đọc dữ liệu và xây dựng đồ thị
+    // Read input and build graph
     while (m--) {
         int u, v;
         cin >> u >> v;
-        g[u].push_back(v); // Thêm cung từ u đến v
+        g[u].push_back(v); // Add directed edge u -> v
     }
     
-    // Thực hiện DFS từ tất cả các đỉnh chưa được thăm
-    // (xử lý cả trường hợp đồ thị không liên thông)
+    // Run DFS from all unvisited vertices (handles disconnected graphs)
     for (int i = 1; i <= n; ++i)
         if (!visited[i]) dfs(i);
     
     
     int cnt = 0;
     while (!topo.empty()) {
-        ans[topo.top()] = ++cnt; // Gán chỉ số mới cho đỉnh topo.top()
+    ans[topo.top()] = ++cnt; // Assign new order index to vertex
         topo.pop();
     }
     

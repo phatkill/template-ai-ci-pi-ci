@@ -6,78 +6,78 @@ using namespace std;
 #define cntBit(n) __builtin_popcount(n)
 #define fastIO ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL);
 #define ll long long
-#define repu(i,a,b)  for(int i=a;i<=b;i++)  // vòng lặp tăng từ a đến b
-#define repd(i,a,b)  for(int i=a;i>=b;i--)  // vòng lặp giảm từ a đến b
+#define repu(i,a,b)  for(int i=a;i<=b;i++)  // increasing loop from a to b
+#define repd(i,a,b)  for(int i=a;i>=b;i--)  // decreasing loop from a to b
 
 struct Trie{
     struct Node
     {
-        Node* child[26];  // mảng 26 con trỏ tương ứng 26 chữ cái a-z
-        int cnt;          // đếm số từ đi qua node này
-        int exist;        // đếm số từ kết thúc tại node này
+    Node* child[26];  // array of 26 pointers for letters a-z
+    int cnt;          // count words passing through this node
+    int exist;        // count words ending at this node
         
         Node(){
             for (int i=0;i<26;i++)
-                child[i]=NULL;  // khởi tạo tất cả con trỏ = NULL
+                child[i]=NULL;  // initialize all child pointers to NULL
             
-            exist=cnt=0;  // khởi tạo các biến đếm = 0
+            exist=cnt=0;  // initialize counters to 0
         }
     };
 
-    Node* root;  // node gốc của Trie
+    Node* root;  // root node of Trie
     
     Trie(){
-        root=new Node();  // khởi tạo node gốc
+    root=new Node();  // create root node
     }
 
-    // Thêm một chuỗi vào Trie
+    // Add a string into the Trie
     void add_string(string s){
-        Node* p=root;  // bắt đầu từ root
+        Node* p=root;  // start at root
         
-        for (auto f:s){  // duyệt qua từng ký tự
-            int c=f-'a';  // chuyển ký tự thành chỉ số (0-25)
+        for (auto f:s){  // iterate characters
+            int c=f-'a';  // convert char to index (0-25)
 
             if (p->child[c]==NULL) 
-                p->child[c]=new Node();  // tạo node mới nếu chưa tồn tại
+                p->child[c]=new Node();  // create node if absent
             
-            p=p->child[c];  // di chuyển xuống node con
-            p->cnt++;       // tăng số từ đi qua node này
+            p=p->child[c];  // move to child
+            p->cnt++;       // increment pass-through count
         }
-        p->exist++;  // đánh dấu có từ kết thúc tại đây
+        p->exist++;  // mark word termination here
     }
 
-    // Xóa chuỗi đệ quy (hàm phụ trợ)
+    // Recursive deletion helper
     bool delete_string_recursive(Node* p,string s,int i){
         if (i!=s.size()){
             int c=s[i]-'a';
-            // Gọi đệ quy cho ký tự tiếp theo
+            // Recurse for next character
             bool is_child_deleted=delete_string_recursive(p->child[c],s,i+1);
             
             if (is_child_deleted) 
-                p->child[c]=NULL;  // xóa con trỏ nếu node con đã bị xóa
+                p->child[c]=NULL;  // clear pointer if child deleted
         }
         else 
-            p->exist--;  // giảm số từ kết thúc tại node này
+            p->exist--;  // decrement terminal word count
 
         if (p!=root){
-            p->cnt--;  // giảm số từ đi qua node này
+            p->cnt--;  // decrement pass-through count
             
-            if (p->cnt==0){  // nếu không còn từ nào đi qua
-                delete(p);   // giải phóng bộ nhớ
-                return true; // báo node cha xóa con trỏ đến node này
+            if (p->cnt==0){  // if no word passes here
+                delete(p);   // free memory
+                return true; // signal parent to nullify pointer
             }
         }
         
         return false;
     }
 
-    // Xóa một chuỗi khỏi Trie
+    // Delete a string from Trie
     void delete_string(string s){
-        if (!find_string(s)) return;  // kiểm tra chuỗi có tồn tại không
+        if (!find_string(s)) return;  // check existence first
         delete_string_recursive(root,s,0);
     }
 
-    // Tìm kiếm một chuỗi trong Trie
+    // Find a string in Trie
     bool find_string(string s){
         Node *p=root;
 
@@ -85,28 +85,28 @@ struct Trie{
             int c=f-'a';
 
             if (p->child[c]==NULL)
-return 0;  // không tìm thấy đường đi
+return 0;  // path does not exist
 
             p=p->child[c];
         }
 
-        return (p->exist!=0);  // trả về true nếu có từ kết thúc tại đây
+        return (p->exist!=0);  // true if a word ends here
     }
 
-    // Đếm số từ có tiền tố là s
+    // Count words having prefix s
     int prefix_cnt(string s){
         Node *p=root;
 
-        for (auto f:s){  // duyệt theo tiền tố
+        for (auto f:s){  // iterate prefix characters
             int c=f-'a';
 
             if (p->child[c]==NULL) 
-                return 0;  // không có từ nào có tiền tố này
+                return 0;  // no word has this prefix
 
             p=p->child[c];
         }
 
-        return p->cnt;  // trả về số từ đi qua node cuối của tiền tố
+        return p->cnt;  // number of words passing through last prefix node
     }
 };
 
@@ -114,24 +114,24 @@ int main()
 {
     // fastIO   
     int n,q;
-    cin>>n>>q;  // đọc số từ và số truy vấn
+    cin>>n>>q;  // read number of words and queries
 
-    Trie *tr=new Trie();  // khởi tạo Trie
+    Trie *tr=new Trie();  // create Trie
     
     string tmp;
     repu(i,1,n){
         cin>>tmp;
-        tr->add_string(tmp);  // thêm n từ vào Trie
+    tr->add_string(tmp);  // add n words
     }
     
     repu(i,1,q){
         cin>>tmp;
-        cout<<tr->prefix_cnt(tmp)<<"\n";  // trả lời q truy vấn
+        cout<<tr->prefix_cnt(tmp)<<"\n";  // answer q-th query
     }
 }
 
 /*
-VÍ DỤ INPUT/OUTPUT:
+EXAMPLE INPUT/OUTPUT:
 
 INPUT:
 5 3
@@ -144,23 +144,21 @@ app
 ban
 cat
 
-Giải thích input:
-- 5 từ trong TODO list: apple, app, application, apply, banana
-- 3 truy vấn: app, ban, cat
+Explanation:
+- 5 words: apple, app, application, apply, banana
+- 3 queries: app, ban, cat
 
 OUTPUT:
 4
 1
 0
 
-Giải thích output:
-- Query "app": có 4 từ có tiền tố "app" là: apple, app, application, apply → in ra 4
-- Query "ban": có 1 từ có tiền tố "ban" là: banana → in ra 1
-- Query "cat": không có từ nào có tiền tố "cat" → in ra 0
+Explanation:
+- Query "app": 4 words with prefix "app" → apple, app, application, apply
+- Query "ban": 1 word with prefix "ban" → banana
+- Query "cat": no word → 0
 
 ---
-
-VÍ DỤ 2:
 
 INPUT:
 4 2
@@ -175,7 +173,7 @@ OUTPUT:
 3
 1
 
-Giải thích:
-- Query "hel": có 3 từ (hello, help, helper) có tiền tố "hel" → in ra 3
-- Query "wor": có 1 từ (world) có tiền tố "wor" → in ra 1
+Explanation:
+- Query "hel": 3 words (hello, help, helper)
+- Query "wor": 1 word (world)
 */

@@ -5,8 +5,8 @@
 using namespace std;
 
 int main() {
-    // Ví dụ: Gieo xúc xắc không cân đối
-    // Mặt 1: 10%, Mặt 2: 20%, Mặt 3: 30%, Mặt 4: 10%, Mặt 5: 10%, Mặt 6: 20%
+    // Example: Biased dice
+    // Face 1: 10%, Face 2: 20%, Face 3: 30%, Face 4: 10%, Face 5: 10%, Face 6: 20%
     vector<double> values = {1, 2, 3, 4, 5, 6};
     vector<double> probs = {0.1, 0.2, 0.3, 0.1, 0.1, 0.2};
 
