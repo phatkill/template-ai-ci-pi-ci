@@ -1,0 +1,35 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\section*{Expected Value}
+
+\begin{description}
+    \item[Formula:] $$E[X] = \sum_{i=1}^{n} x_i \cdot P(x_i)$$
+    \ 
+    
+    \item[Explanation:] Take (each value) x (its probability) and sum them all up.
+    \ 
+    
+    \item[Example 1: Roll a 6-sided die (fair)]
+    \begin{itemize}
+        \item \textbf{Random Variable (X):} The number of dots on the face.
+        \item \textbf{Possible Values (x\_i):} \{1, 2, 3, 4, 5, 6\}
+        \item \textbf{Probability (P(x\_i)):} Since the die is fair, the probability of each face is 1/6.
+    \end{itemize}
+    \ 
+    
+    \item[Calculation:]
+    $$E[X] = (1 \cdot \frac{1}{6}) + (2 \cdot \frac{1}{6}) + (3 \cdot \frac{1}{6}) + (4 \cdot \frac{1}{6}) + (5 \cdot \frac{1}{6}) + (6 \cdot \frac{1}{6})$$
+    $$E[X] = \frac{1+2+3+4+5+6}{6}$$
+    $$E[X] = \frac{21}{6} = 3.5$$
+    \ 
+\end{description}
+
+\end{document}

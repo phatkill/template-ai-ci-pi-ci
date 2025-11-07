@@ -1,0 +1,62 @@
+\documentclass[12pt,a4paper]{article}
+
+% --- PACKAGES ---
+\usepackage[T1]{fontenc}      % Font encoding for PDF output
+\usepackage{lmodern}          % Use Latin Modern font
+\usepackage{amsmath}          % For math symbols
+\usepackage{amssymb}          % For math symbols
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry} % Page margins
+
+% Define \code{} command for better special character handling
+\newcommand{\code}[1]{\texttt{#1}}
+
+% --- DOCUMENT ---
+\begin{document}
+
+\section*{Bitmask Tricks}
+
+\begin{description}
+    \item[Check even/odd:] \code{x \& 1}
+    
+    \item[Check if x is a power of 2:] \code{x > 0 \&\& (x \& (x - 1) == 0)}
+    
+    \item[Check k-th bit:] \code{x \& (1LL << k)}
+    
+    \item[Toggle k-th bit:] \code{x \^{}= (1LL << k)}
+    
+    \item[Set k-th bit:] \code{x |= (1LL << k)}
+    
+    \item[Unset k-th bit:] \code{x \&= \~{}(1LL << k)}
+    
+    \item[Multiply by $2^k$:] \code{x << k}
+    
+    \item[Divide by $2^k$:] \code{x >> k}
+    
+    \item[Find $X \pmod{2^k}$:] \code{x \& ((1LL << k) - 1)}
+    
+    \item[Swap a and b:]
+    \begin{itemize}
+        \item[] \code{a \^{}= b;}
+        \item[] \code{b \^{}= a;}
+        \item[] \code{a \^{}= b;}
+    \end{itemize}
+    
+    \item[If $x = a \implies x = b$ (and vice-versa):] \code{x = a \^{} b \^{} x}
+    
+    \item[$A + B$:]
+    \begin{itemize}
+        \item \code{(A \^{} B) + 2*(A \& B)}
+        \item \code{(A | B) + (A \& B)}
+    \end{itemize}
+    
+    \item[Count set bits (GCC/Clang):] \code{\_\_builtin\_popcountll(x)}
+    
+    \item[Count leading zeros (GCC/Clang):] \code{\_\_builtin\_clzll(x)}
+    
+    \item[Find lowest set bit:] \code{x \& -x}
+    
+    \item[Find lowest unset bit:] \code{\~{}x \& -\~{}x}
+    
+\end{description}
+
+\end{document}

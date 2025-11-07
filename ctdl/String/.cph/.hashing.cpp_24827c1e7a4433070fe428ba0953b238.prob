@@ -1,0 +1,1 @@
+{"name":"Local: hashing","url":"d:\\VKU\\generateCP\\ctdl\\String\\hashing.cpp","tests":[{"id":1762525821240,"input":"banana\n3\n0 2 2 4\n1 3 3 5\n0 0 5 5","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\VKU\\generateCP\\ctdl\\String\\hashing.cpp","group":"local","local":true}

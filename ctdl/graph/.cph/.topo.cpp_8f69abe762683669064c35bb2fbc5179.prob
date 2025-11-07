@@ -1,0 +1,1 @@
+{"name":"Local: topo","url":"d:\\VKU\\generateCP\\ctdl\\graph\\topo.cpp","tests":[{"id":1762525555397,"input":"5 5\n1 2\n1 3\n2 4\n3 4\n3 5","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\VKU\\generateCP\\ctdl\\graph\\topo.cpp","group":"local","local":true}

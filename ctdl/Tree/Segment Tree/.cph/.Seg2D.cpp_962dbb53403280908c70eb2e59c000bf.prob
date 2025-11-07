@@ -1,0 +1,1 @@
+{"name":"Local: Seg2D","url":"d:\\VKU\\generateCP\\ctdl\\SegmentTree\\Seg2D.cpp","tests":[{"id":1762524685224,"input":"3 3 5\n1 2 3\n4 5 6\n7 8 9\n2 1 1 3 3\n1 2 2 10\n2 1 1 3 3\n2 2 2 3 3\n2 1 2 2 3","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\VKU\\generateCP\\ctdl\\SegmentTree\\Seg2D.cpp","group":"local","local":true}

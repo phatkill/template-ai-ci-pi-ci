@@ -1,0 +1,51 @@
+\documentclass[12pt,a4paper]{article}
+
+% --- PACKAGES ---
+\usepackage[T1]{fontenc}        % Font encoding for PDF output
+\usepackage{lmodern}            % Use Latin Modern font
+\usepackage{amsmath}            % For math symbols
+\usepackage{amssymb}            % For math symbols
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry} % Page margins
+
+% Define \code{} command (not used here, but part of the style)
+\newcommand{\code}[1]{\texttt{#1}}
+
+% --- DOCUMENT ---
+\begin{document}
+
+\section*{Graph Theory Definitions}
+
+\begin{description}
+    \item[Bipartite Graph:] A graph is \textbf{bipartite} when its vertex set can be divided into two disjoint sets, $X$ and $Y$, such that every edge in the graph must connect a vertex in set $X$ to a vertex in set $Y$, and no pair of vertices within the same set are connected (i.e., there are no $X-X$ or $Y-Y$ edges).
+    \ 
+    
+    \item[Context:] The following definitions apply to a graph $G = (V, E)$.
+    \ 
+
+    \item[Connected (between 2 vertices):] Two vertices $u$ and $v$ of $G$ are \textbf{connected} if there exists at least one path from $u$ to $v$.
+    \ 
+
+    \item[Connected (graph):] $G$ is \textbf{connected} if every pair of vertices in $G$ is connected.
+    \ 
+
+    \item[Biconnected:] $G$ is \textbf{biconnected} if it is connected and has no articulation points.
+    \ 
+
+    \item[Strongly Connected (Directed Graph):] A directed graph $G$ is called \textbf{strongly connected} if for every pair of vertices $(u, v)$, there exists a path from $u$ to $v$ AND a path from $v$ to $u$.
+    \ 
+
+    \item[Weakly Connected (Directed Graph):] A directed graph $G$ is called \textbf{weakly connected} if its corresponding undirected graph (by ignoring edge directions) is connected.
+    \ 
+
+    \item[Articulation Point (or Cut Vertex):] A vertex $u$ in $G$ is called an \textbf{articulation point} if removing $u$ (and its incident edges) from the graph increases the number of connected components.
+    \ 
+
+    \item[Bridge (or Cut Edge):] An edge $e$ in $G$ is called a \textbf{bridge} if removing $e$ from the graph increases the number of connected components.
+    \ 
+
+    \item[Connected Component:] A \textbf{connected component} is a maximal connected subgraph (meaning no other vertices can be added to it while maintaining connectivity). If $G$ is not connected, it will consist of multiple connected components.
+    \ 
+
+\end{description}
+
+\end{document}

@@ -1,0 +1,77 @@
+\documentclass[12pt,a4paper]{article}
+
+% --- PACKAGES ---
+\usepackage[T1]{fontenc}      % Font encoding for PDF output
+\usepackage{lmodern}          % Use Latin Modern font
+\usepackage[english]{babel}   % Language rules
+\usepackage{amsmath}          % For math symbols, \binom, \dots
+\usepackage{amssymb}          % For math symbols
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry} % Page margins
+
+\title{The Stars and Bars Problem \\ (Euler's Sweet-Sharing Problem)}
+\author{}
+\date{} % No date
+
+% --- DOCUMENT ---
+\begin{document}
+
+\maketitle
+\thispagestyle{empty} % No page number on the title page
+
+\section*{1. The Basic Problem (Non-negative Solutions)}
+
+Let's call the number of sweets each child receives $x_1, x_2, \dots, x_n$ (where $0 \le x_i \le m$; $\forall i : 1 \le i \le n$). The problem becomes: \textbf{Count the number of non-negative integer solutions} to the equation:
+
+$$x_1 + x_2 + \dots + x_n = m$$
+
+Using the "Stars and Bars" technique, we consider that there is a "0" (bar) between the sweets of each child, and the number of sweets for child $i$ is represented by a sequence of "1s" (stars). The problem becomes counting the number of configurations of the form:
+
+$$
+\underbrace{1 1 \dots 1}_{x_1} \mathbf{0} \underbrace{1 1 \dots 1}_{x_2} \mathbf{0} \dots \mathbf{0} \underbrace{1 1 \dots 1}_{x_n}
+$$
+
+With $m$ "1s" (stars) and $n-1$ "0s" (bars).
+
+Thus, we are actually counting the number of ways to place $n-1$ "0s" into a sequence of $m + n - 1$ total positions, with the remaining positions being "1s". According to the rule of combinations without repetition, the number of solutions will be:
+
+$$ \binom{m+n-1}{n-1} \quad \text{or equivalently} \quad \binom{m+n-1}{m} $$
+
+\section*{2. Case: Each Child Receives At Least 1 Sweet}
+
+The problem is slightly trickier if the problem requires that every child receives at least 1 sweet. The problem becomes: \textbf{Count the number of positive integer solutions} to the equation:
+
+$$x_1 + x_2 + \dots + x_n = m \quad (\text{where } x_i \ge 1)$$
+
+For this problem, we solve as follows: Let $y_i = x_i - 1$; $\forall i : 1 \le i \le n$. Since $x_i \ge 1$, we have $y_i \ge 0$.
+The equation becomes:
+$$ (y_1 + 1) + (y_2 + 1) + \dots + (y_n + 1) = m $$
+$$ y_1 + y_2 + \dots + y_n + n = m $$
+$$ y_1 + y_2 + \dots + y_n = m - n \quad (1) $$
+
+This equation has two possible outcomes:
+\begin{itemize}
+    \item If $m < n$, the equation has no solution.
+    \item If $m \ge n$, the problem reverts to the basic form. The number of solutions is the number of non-negative $y_i$ values that satisfy equation (1), which is:
+\end{itemize}
+
+$$ \binom{(m-n)+n-1}{n-1} = \binom{m-1}{n-1} $$
+
+\section*{3. Development of the General Problem}
+
+Problems of this type can be generalized as follows: \textbf{Count the number of integer solutions} to the equation $x_1 + x_2 + \dots + x_n = m$; with the constraint $x_i \ge a_i$ ($\forall i : 1 \le i \le n$).
+
+The solution to this problem is similar to problem 2. We set $y_i = x_i - a_i$; $\forall i : 1 \le i \le n$ (so $y_i \ge 0$) and let $s = \sum_{i=1}^n a_i$. The equation becomes:
+
+$$ (y_1 + a_1) + (y_2 + a_2) + \dots + (y_n + a_n) = m $$
+$$ y_1 + y_2 + \dots + y_n = m - s \quad (2) $$
+
+Now we consider three possible outcomes:
+\begin{itemize}
+    \item If $m < s$, the given equation has no solution.
+    \item If $m = s$, the given equation has exactly one solution, which is $x_i = a_i$; $\forall i$.
+    \item If $m > s$, we need to count the number of non-negative $y_i$ values that satisfy equation (2), which is:
+\end{itemize}
+
+$$ \binom{(m-s)+n-1}{n-1} = \binom{m-s+n-1}{n-1} $$
+
+\end{document}

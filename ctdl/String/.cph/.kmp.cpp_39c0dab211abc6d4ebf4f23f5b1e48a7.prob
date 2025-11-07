@@ -1,0 +1,1 @@
+{"name":"Local: kmp","url":"d:\\VKU\\generateCP\\ctdl\\String\\kmp.cpp","tests":[{"id":1762525861950,"input":"ababcabcabababd\nababd","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\VKU\\generateCP\\ctdl\\String\\kmp.cpp","group":"local","local":true}
