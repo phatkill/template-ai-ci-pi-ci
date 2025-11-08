@@ -33,7 +33,7 @@ struct MergeSortTree{
 
     T get(int id, int l, int r, int u, int v, T k){
         if (l > v || r < u) return T{};
-        if ( u <= l && r <= v) return node[id].end() - upper_bound(all(node[id]), k);
+        if ( u <= l && r <= v) return node[id].end() - upper_bound(all(node[id]), k); // greater || (less or equal: upper_bound(all(node[id])) - node[id].begin())
         int mid = l + r >> 1;
         return get(id * 2, l, mid, u, v, k) + get(id * 2 + 1, mid + 1, r, u, v, k);
     }
